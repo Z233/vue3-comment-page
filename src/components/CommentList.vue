@@ -42,7 +42,7 @@ export default defineComponent({
       toggleReplyForm();
     });
 
-    watch(commentArray, () => {  
+    watch(commentArray, () => {
       replyFormVisArr.value = commentArray.value.map(() => false);      
     });
 
@@ -58,23 +58,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped>
-  .fade-enter-active {
-    transition: all .5s ease-in-out;
-  }
-
-  .fade-leave-active {
-    transition: all .25s ease;
-    position: absolute;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-  }
-
-  .fade-move {
-    transition: transform 0.5s ease;
-  }
-</style>

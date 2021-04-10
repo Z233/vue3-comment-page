@@ -33,7 +33,7 @@ const mutations = {
     });
   },
   addComment(state: State, { comment }: { comment: Comment }) {
-    state.commentArray.unshift(comment);
+    state.commentArray = [comment, ...state.commentArray];
     saveComment(state.commentArray);
   },
   deleteComment(state: State, { id }: { id: string }) {

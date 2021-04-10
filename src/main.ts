@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
 import './style/index.css';
+import './style/transition.css';
 import { store, key } from './store';
 
 const app = createApp(App)

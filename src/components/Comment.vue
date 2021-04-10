@@ -16,12 +16,15 @@
             </div>
           </div>
         </div>
-        <CommentReply 
+        <transition-group
+          name="fade">
+          <CommentReply 
           v-for="reply in comment.replies" 
           :key="reply.id"
           :reply="reply" 
           :commentId="comment.id"
           @clickOnSonReply="clickOnSonReply($event)"/>
+        </transition-group>
         <CommentReplyForm 
           v-if="replyFormVis" 
           :show="replyFormVis" 
