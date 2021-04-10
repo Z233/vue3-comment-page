@@ -3,5 +3,6 @@ export interface Comment {
   time: number,
   content: string,
   id: string,
-  imgurl: string
+  imgurl: string,
+  replies: Array<Comment>
 }

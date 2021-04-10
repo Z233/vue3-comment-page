@@ -1,7 +1,7 @@
-import { uniqueNamesGenerator, Config, adjectives, animals } from 'unique-names-generator';
+import { uniqueNamesGenerator, Config, names } from 'unique-names-generator';
 
 const config: Config = {
-  dictionaries: [adjectives, animals],
+  dictionaries: [names],
   separator: ' ',
   style: 'capital'
 }

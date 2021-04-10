@@ -4,11 +4,7 @@
     <Comment 
       v-for="(comment, idx) in commentArray"
       :key="comment.id"
-      :name="comment.name"
-      :time="comment.time"
-      :content="comment.content"
-      :id="comment.id"
-      :imgurl="comment.imgurl"
+      :comment="comment"
       :replyFormVis="replyFormVisArr[idx]"
       @clickOnReply="toggleReplyForm($event, idx)">
     </Comment>
@@ -20,6 +16,7 @@ import { defineComponent, computed, onMounted, watch, ref } from 'vue';
 import Comment from './Comment.vue';
 import { useComment } from '../composables/comment';
 import { useStore } from '../store';
+import emitter from '../utils/mitt';
 
 export default defineComponent({
   components: {
@@ -29,6 +26,21 @@ export default defineComponent({
     const store = useStore();
     const commentArray = computed(() => store.state.commentArray);
     const replyFormVisArr = ref();
+
+    const toggleReplyForm = (vis ? : boolean, idx ? : number) => {
+      const arr = replyFormVisArr.value as Array < boolean > ;
+      if (idx !== undefined) {
+        arr.forEach((e, i) => {
+          arr[i] = idx === i ? vis! : false;
+        });
+      } else {
+        arr.forEach((e, i) => arr[i] = false);
+      }
+    };
+
+    emitter.on('replyFinished', () => {  
+      toggleReplyForm();
+    });
 
     watch(commentArray, () => {  
       replyFormVisArr.value = commentArray.value.map(() => false);      
@@ -41,12 +53,7 @@ export default defineComponent({
     return {
       commentArray,
       replyFormVisArr,
-      toggleReplyForm: (vis: boolean, idx: number) => {  
-        const arr = replyFormVisArr.value as Array<boolean>;
-        arr.forEach((e, i) => {
-          arr[i] = idx === i ? vis: false;
-        });
-      }
+      toggleReplyForm
     }
   }
 })

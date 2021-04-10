@@ -42,6 +42,18 @@ const mutations = {
   },
   syncComment(state: State, { commentArray }: { commentArray: Array<Comment> }) {
     state.commentArray = commentArray;
+  },
+  addReply(state: State, payload: { reply: Comment, id: string }) {
+    const { reply, id } = payload;
+    const tarIdx = state.commentArray.findIndex(c => c.id === id);
+    state.commentArray[tarIdx].replies.unshift(reply);
+    saveComment(state.commentArray);
+  },
+  deleteReply(state: State, payload: { replyId: string, commentId: string }) {
+    const { replyId, commentId } = payload;
+    const tarCommentIdx = state.commentArray.findIndex(c => c.id === commentId);
+    state.commentArray[tarCommentIdx].replies = state.commentArray[tarCommentIdx].replies.filter(r => r.id !== replyId);
+    saveComment(state.commentArray);
   }
 };
 

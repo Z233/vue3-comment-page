@@ -1,14 +1,14 @@
 <template>
   <div class="flex space-x-5">
-    <Avatar :size="10" :imgurl="imgurl"/>
+    <Avatar :size="10" :imgurl="reply.imgurl"/>
     <div class="reply bg-white flex flex-col p-3 rounded-md relative shadow-sm">
-      <p class="text-primary">There are replies.</p>
+      <p class="text-primary">{{ reply.content }}</p>
       <div class="flex justify-between mt-2 text-xs text-gray-400 space-x-3 md:space-x-16">
-        <span>Hello | 3 hours ago</span>
+        <span>{{ reply.name }} | {{ reply.time }}</span>
         <div>
-          <span @click="deleteComment(id)" class="hover:text-gray-600 cursor-pointer">Delete</span>
+          <span @click="deleteReply(reply.id, commentId)" class="hover:text-gray-600 cursor-pointer">Delete</span>
           |
-          <span class="hover:text-gray-600 cursor-pointer">Reply</span>
+          <span @click="$emit('clickOnSonReply', reply.name)" class="hover:text-gray-600 cursor-pointer">Reply</span>
         </div>
       </div>
     </div>
@@ -16,19 +16,31 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { computed, defineComponent, PropType } from 'vue';
 import Avatar from '../components/CommentAvatar.vue';
 import { useStore } from '../store';
+import { Comment } from '../type';
 
 export default defineComponent({
   components: {
     Avatar
   },
+  props: {
+    reply: {
+      type: Object as PropType<Comment>,
+      required: true
+    },
+    commentId: {
+      type: String,
+      required: true
+    }
+  },
   setup() {
     const store = useStore();
 
     return {
-      imgurl: computed(() => store.state.user.imgurl)
+      imgurl: computed(() => store.state.user.imgurl),
+      deleteReply: (replyId: string, commentId: string) => store.commit('deleteReply', { replyId, commentId })
     }
   },
 })

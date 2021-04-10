@@ -18,8 +18,7 @@
 import { computed, defineComponent, onMounted, ref } from 'vue';
 import Avatar from './CommentAvatar.vue';
 import { useStore } from '../store';
-import { Comment } from '../type';
-import getShortid from '../utils/shortid';
+import { createComment } from '../composables/comment';
 
 export default defineComponent({
   components: {
@@ -44,14 +43,7 @@ export default defineComponent({
       imgurl,
       content,
       addComment: () => {
-        const comment: Comment = {
-          name: name.value,
-          content: content.value,
-          id: getShortid(),
-          time: parseInt((Date.now() / 1000).toString(), 10),
-          imgurl: imgurl.value,
-        };
-
+        const comment = createComment(content.value);
         store.commit('addComment', { comment });
       },
       resetForm: () => {
