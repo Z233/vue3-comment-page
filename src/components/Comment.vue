@@ -10,19 +10,21 @@
             <div>
               <span @click="deleteComment(id)" class="hover:text-gray-600 cursor-pointer">Delete</span>
               |
-              <span class="hover:text-gray-600 cursor-pointer">Reply</span>
+              <span
+                @click="$emit('clickOnReply', !replyFormVis)" 
+                class="hover:text-gray-600 cursor-pointer">Reply</span>
             </div>
           </div>
         </div>
         <CommentReply/>
-        <CommentReplyForm/>
+        <CommentReplyForm v-if="replyFormVis"/>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, toRefs } from 'vue';
 import { useStore } from '../store'; 
 import Avatar from './CommentAvatar.vue';
 import CommentReply from './CommentReply.vue';
@@ -53,6 +55,10 @@ export default defineComponent({
     },
     imgurl: {
       type: String,
+      required: true
+    },
+    replyFormVis: {
+      type: Boolean,
       required: true
     }
   },

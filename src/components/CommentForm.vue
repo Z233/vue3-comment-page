@@ -30,7 +30,7 @@ export default defineComponent({
     const name = ref('');
     const content = ref('');
     const avatarRef = ref(null);
-
+    
     const imgurl = computed(() => store.state.user.imgurl);
 
     onMounted(() => {

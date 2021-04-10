@@ -3,7 +3,7 @@
     <Avatar :imgurl="user.imgurl" :size="10"/>
     <div class="bg-gray-300 rounded-3xl flex shadow-md">
       <div class="py-2 pl-4 pr-3">
-        <input type="text" placeholder="Reply..." class="bg-transparent h-full focus:outline-none">
+        <input ref="input" type="text" placeholder="Reply..." class="bg-transparent h-full focus:outline-none">
       </div>
       <button class="bg-primary hover:bg-primary-light transition text-white py-2 px-4 rounded-3xl">
         <span>Reply</span>
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, onMounted, ref, toRefs, watch } from 'vue'
 import { useStore } from '../store'
 import Avatar from './CommentAvatar.vue';
 
@@ -23,9 +23,15 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    const input = ref(null);
 
+    onMounted(() => {
+      (input.value! as HTMLElement).focus();
+    });
+    
     return {
-      user: computed(() => store.state.user)
+      user: computed(() => store.state.user),
+      input
     }
   },
 })

@@ -4,7 +4,7 @@
     <div class="reply bg-white flex flex-col p-3 rounded-md relative shadow-sm">
       <p class="text-primary">There are replies.</p>
       <div class="flex justify-between mt-2 text-xs text-gray-400 space-x-3 md:space-x-16">
-        <span>Hello | {{ new Date(time * 1000).toLocaleString() }}</span>
+        <span>Hello | 3 hours ago</span>
         <div>
           <span @click="deleteComment(id)" class="hover:text-gray-600 cursor-pointer">Delete</span>
           |

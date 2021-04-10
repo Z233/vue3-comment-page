@@ -10,7 +10,8 @@ export interface State {
     name: string,
     imgurl: string
   },
-  commentArray: Array<Comment>
+  commentArray: Array<Comment>,
+  replyFormVis: boolean
 }
 
 export const key: InjectionKey<Store<State>> = Symbol();
@@ -21,6 +22,7 @@ const state = {
     imgurl: ''
   },
   commentArray: [] as Array<Comment>,
+  replyFormVis: false
 };
 
 const mutations = {
