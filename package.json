@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "dayjs": "^1.10.4",
     "mitt": "^2.1.0",
     "shortid": "^2.2.16",
     "unique-names-generator": "^4.4.0",
