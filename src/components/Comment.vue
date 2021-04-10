@@ -11,7 +11,7 @@
               <span @click="deleteComment(comment.id)" class="hover:text-gray-600 cursor-pointer">Delete</span>
               |
               <span
-                @click="$emit('clickOnReply', !replyFormVis)" 
+                @click="clickOnReply" 
                 class="hover:text-gray-600 cursor-pointer">Reply</span>
             </div>
           </div>
@@ -64,6 +64,10 @@ export default defineComponent({
       replyContent,
       deleteComment(id: string) {
         store.commit('deleteComment', { id });
+      },
+      clickOnReply() {
+        emit('clickOnReply', !props.replyFormVis);
+        replyContent.value = '';
       },
       clickOnSonReply(name: string) {
         emit('clickOnReply', !props.replyFormVis);
