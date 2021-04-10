@@ -1,5 +1,5 @@
 <template>
-  <div class="pl-20 mt-5 flex space-x-3">
+  <div class="flex space-x-3 w-full">
     <Avatar :imgurl="user.imgurl" :size="10"/>
     <div class="bg-gray-300 rounded-3xl flex shadow-md">
       <div class="py-2 pl-4 pr-3">
