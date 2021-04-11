@@ -4,7 +4,7 @@
     <div class="comment flex flex-col flex-wrap-reverse w-full max-w-full-calc" @keypress.enter="addComment() || resetForm()">
       <textarea v-model="content" class="w-full shadow-md rounded-md p-4 focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Add comment..." id="" cols="30" rows="5"></textarea>
       <div class="flex justify-between">
-        <input v-model="name" class="shadow-md mt-5 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary" type="text" placeholder="Your name">
+        <input v-model="name" class="shadow-md mt-5 rounded-md p-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary w-20 md:w-auto" type="text" placeholder="Your name">
         <button @click="addComment() || resetForm()" class="mt-5 w-32 bg-primary text-white p-2 rounded-lg shadow-lg transition transform hover:scale-110 flex">
           <span class="text-center flex-grow">Add comment</span>
         </button>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import Avatar from './CommentAvatar.vue';
 import { useStore } from '../store';
 import { createComment } from '../composables/comment';
@@ -35,6 +35,10 @@ export default defineComponent({
     onMounted(() => {
       store.commit('setRandomUser');
       name.value = store.state.user.name;      
+    });
+
+    watch(name, () => {
+      store.dispatch('changeNameAsync', name);
     });
 
     return {

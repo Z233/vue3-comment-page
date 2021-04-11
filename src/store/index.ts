@@ -54,6 +54,16 @@ const mutations = {
     const tarCommentIdx = state.commentArray.findIndex(c => c.id === commentId);
     state.commentArray[tarCommentIdx].replies = state.commentArray[tarCommentIdx].replies.filter(r => r.id !== replyId);
     saveComment(state.commentArray);
+  },
+  changeName(state: State, payload: { name: string }) {
+    const { name } = payload;
+    state.user.name = name;
+  }
+};
+
+const actions = {
+  changeNameAsync({ commit }: { commit: Function }, name: string) {
+    commit('changeName', { name });
   }
 };
 
@@ -63,5 +73,6 @@ export function useStore() {
 
 export const store = createStore({
   state,
-  mutations
+  mutations,
+  actions
 });
